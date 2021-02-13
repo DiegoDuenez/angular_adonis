@@ -1,0 +1,25 @@
+<app-nav-bar-inicio-sesion></app-nav-bar-inicio-sesion>
+
+<div class="container">
+    <table class="table separacion personas">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Descripción</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr  *ngFor="let producto of productos" >
+            <th scope="row">{{producto.id}}</th>
+            <td >{{producto.nombre_producto}}</td>
+            <td >{{producto.descripcion}}</td>
+            <td >${{producto.precio}}</td>
+            <td><button class="btn btn-success btn"> Comentarios </button> &nbsp; <button class="btn btn-warning btn"> Actualizar </button> &nbsp; <button class="btn btn-danger btn"> Eliminar </button> </td>
+            
+        </tr>
+        </tbody>
+    </table>
+</div>
