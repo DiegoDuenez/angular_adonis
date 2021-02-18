@@ -1,56 +1,42 @@
 <app-nav-bar-inicio-sesion></app-nav-bar-inicio-sesion>
 
 <div class="container ctn">
-    <form>
-        <div class="form-row align-items-center">
-          <div class="col-auto my-1">
-            <select class="custom-select" (change)="selectChangeHandler($event)">
-                <option>Seleccione producto...</option>
-                <option *ngFor="let producto of productos"  [value]="producto.id">{{producto.nombre_producto}}</option>
-            </select>   
-          </div>
-        </div>
-    </form>
-</div>
-
-<!-- 
-<div *ngIf="idParam">
-    <div class="container bg-light ctn shadow rounded" *ngFor="let comentario of comentarios">
-
-
-        <h4>Usuario: </h4> <span>{{userNombre}}</span>
-        <div align="right" *ngIf="canUpdate && canDelete">
-            <span><button class="btn btn-outline-warning">Editar</button></span>
-            <span><button class="btn btn-outline-danger">Borrar</button></span>
-        </div>
-        <h4>Titulo: </h4> <span>{{comentario.titulo}}</span>
-        <h4>Contenido: </h4> <span>{{comentario.contenido}}</span>
-        <h4>Producto: </h4> <span>{{prodNombre}}</span>
-        <div align="right">
-            <span><b>Creación: </b>{{comentario.created_at}}</span>
-            <span><b> Actualización: </b>{{comentario.updated_at}}</span>
-        </div>
-            
-            
+  <form>
+    <div class="form-row align-items-center">
+      <div class="col-auto my-1">
+        <select class="custom-select" (change)="selectChangeHandler($event)">
+          <option>Seleccione producto...</option>
+          <option *ngFor="let producto of productos" [value]="producto.id">
+            {{ producto.nombre_producto }}
+          </option>
+        </select>
+      </div>
     </div>
-</div> -->
+  </form>
+</div>
 
 <div *ngIf="idParam">
-    <div class="container bg-light ctn shadow rounded" *ngFor="let comentario of comentarios">
-
-
-        <h4>Usuario: </h4> <span>{{userNombre}}</span>
-        <h4>Titulo: </h4> <span>{{comentario.titulo}}</span>
-        <h4>Contenido: </h4> <span>{{comentario.contenido}}</span>
-        <h4>Producto: </h4> <span>{{prodNombre}}</span>
-        
-            
-            
-    </div>
+  <div
+    class="container bg-light ctn shadow rounded"
+    *ngFor="let comentario of comentarios"
+  >
+    <h4>Usuario:</h4>
+    <span>{{ userNombre }}</span>
+    <h4>Titulo:</h4>
+    <span>{{ comentario.titulo }}</span>
+    <h4>Contenido:</h4>
+    <span>{{ comentario.contenido }}</span>
+    <h4>Producto:</h4>
+    <span>{{ prodNombre }}</span>
+    <br />
+    <button class="btn btn-danger btn" (click)="onDeletecomentario(comentario)">
+      Eliminar
+    </button>
+  </div>
 </div>
-
-<div class="container bg-light ctn shadow rounded" *ngIf="comentarios.length == 0">
-    <h4 class="text-secondary">NO HAY COMENTARIOS PARA ESTE PRODUCTO</h4>
+<div
+  class="container bg-light ctn shadow rounded"
+  *ngIf="comentarios.length == 0"
+>
+  <h4 class="text-secondary">NO HAY COMENTARIOS PARA ESTE PRODUCTO</h4>
 </div>
-
-

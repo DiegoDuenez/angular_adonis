@@ -1,38 +1,78 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">MERCADO</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+  <a class="navbar-brand" href="#">MERCADO</a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item dropdown">
+        <a
+          class="nav-link dropdown-toggle"
+          href="#"
+          id="navbarDropdown"
+          role="button"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          Productos
+        </a>
+
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" routerLink="/productos">Ver productos</a>
+          <a class="dropdown-item" (click)="misProds.idUser()">Mis productos</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" routerLink="/registrar/productos"
+            >Registrar Productos</a
+          >
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/usuarios">Usuarios</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a
+          class="nav-link dropdown-toggle"
+          href="#"
+          id="navbarDropdown"
+          role="button"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          Comentarios
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" routerLink="/comentarios/productos"
+            >Comentarios de producto</a
+          >
+          <a class="dropdown-item" routerLink="/comentarios/usuarios"
+            >Comentarios de usuario</a
+          >
+          <a class="dropdown-item" routerLink="/registrar/comentarios"
+            >Comentar</a
+          >
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/perfil">Perfil</a>
+      </li>
+    </ul>
+    <button
+      class="btn btn-outline-danger my-2 my-sm-0"
+      (click)="authService.logout()"
+      type="submit"
+    >
+      Cerrar sesión
     </button>
-  
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Productos
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" routerLink="/productos">Ver productos</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" (click)="misProds.idUser()">Mis productos</a>
-          </div>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/usuarios">Usuarios</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Comentarios
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" routerLink="/comentarios/productos">Comentarios de producto</a>
-            <a class="dropdown-item" routerLink="/comentarios/usuarios">Comentarios de usuario</a>
-          </div>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/perfil">Perfil</a>
-        </li>
-        
-      </ul>
-        <button class="btn btn-outline-danger my-2 my-sm-0" (click)="authService.logout()" type="submit">Cerrar sesión</button>
-    </div>
-  </nav>
+  </div>
+</nav>

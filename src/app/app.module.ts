@@ -17,6 +17,12 @@ import { ProductosComponent } from './components/productos/productos.component';
 import { MisProductosComponent } from './components/mis-productos/mis-productos.component';
 import { ComentariosUsuarioComponent } from './components/comentarios-usuario/comentarios-usuario.component';
 import { ComentariosProductoComponent } from './components/comentarios-producto/comentarios-producto.component';
+import { ComentarComponent } from './comentar/comentar.component';
+import { ComentariosNewComponent } from './components/comentarios-new/comentarios-new.component';
+import { ProductosNewComponent } from './components/productos-new/productos-new.component';
+import { UsuariosUpdateComponent } from './components/usuarios-update/usuarios-update.component';
+import { ProductoUpdateComponent } from './components/producto-update/producto-update.component';
+import { ComentarioUpdateComponent } from './components/comentario-update/comentario-update.component';
 
 
 @NgModule({
@@ -32,6 +38,12 @@ import { ComentariosProductoComponent } from './components/comentarios-producto/
     MisProductosComponent,
     ComentariosUsuarioComponent,
     ComentariosProductoComponent,
+    ComentarComponent,
+    ComentariosNewComponent,
+    ProductosNewComponent,
+    UsuariosUpdateComponent,
+    ProductoUpdateComponent,
+    ComentarioUpdateComponent,
     
   ],
   imports: [

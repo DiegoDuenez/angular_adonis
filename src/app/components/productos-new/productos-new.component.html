@@ -1,0 +1,57 @@
+<app-nav-bar-inicio-sesion></app-nav-bar-inicio-sesion>
+
+<div class="card" style="width: 18rem">
+  <div class="card-body">
+    <h5 class="card-title">Producto:</h5>
+    <div class="mb-3">
+      <div>
+        <form
+          class="login"
+          [formGroup]="registroForm"
+          (ngSubmit)="registroPro()"
+        >
+          <div class="form-group">
+            <label for="inputnombre_producto">Nombre</label>
+            <input
+              type="text"
+              class="form-control"
+              id="inputnombre_producto"
+              formControlName="nombre_producto"
+              [class.is-invalid]="nombre_productoValidate"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="inputdescripcion">descripcion</label>
+            <input
+              type="text"
+              class="form-control"
+              id="inputdescripcion"
+              formControlName="descripcion"
+              [class.is-invalid]="descripcionValidate"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="inputprecio">precio</label>
+            <input
+              type="Float32Array"
+              min="1"
+              pattern="^[0-9]+"
+              class="form-control"
+              id="inputprecio"
+              formControlName="precio"
+              [class.is-invalid]="precioValidate"
+            />
+          </div>
+
+          <div class="form-group">
+            <button type="submit" class="btn btn-lg btn-block btn-success">
+              Registrar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

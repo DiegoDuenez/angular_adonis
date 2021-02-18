@@ -10,127 +10,129 @@ import { User } from '../../models/user';
 @Component({
   selector: 'app-productos',
   templateUrl: './productos.component.html',
-  styleUrls: ['./productos.component.css']
+  styleUrls: ['./productos.component.css'],
 })
 export class ProductosComponent implements OnInit {
-
   producto!: Producto;
-
   usuario!: User;
-
   usuarios!: User[];
-
   productos!: Producto[];
-  
   idParam!: Number;
-
   selectedId!: Number;
-
   selectedComentarios!: Comentario;
-
   selectedProducto!: Producto;
+  selectedproducto!: Comentario;
 
-
-
-
-  constructor(public authService: AuthService, private router: Router, private route: ActivatedRoute, private http: HttpClient) { }
+  constructor(
+    public authService: AuthService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private http: HttpClient
+  ) {}
 
   ngOnInit(): void {
-
-    /*this.authService.productos().subscribe((data: any) => {
-      this.router.navigate(['/productos']);
-      this.productos = data.productos
-      console.log("Productos");
-      console.log(this.productos)
-      
-    }, error =>{
-      console.log(error)
-
-    });*/
-
-
     this.idParam = this.route.snapshot.params['id'];
-
-    
-    
-
-    if(!this.idParam){
-      this.authService.productos().subscribe((data: any) => {
-        this.router.navigate(['/productos']);
-        this.productos = data.productos
-        console.log("Productos");
-        console.log(this.productos)
-        
-      }, error =>{
-        console.log(error)
-  
-      });
-      
-    }
-    else if(this.idParam){
-      this.authService.productos(this.idParam).subscribe((data: any) => {
-        this.router.navigate(['/productos/'+this.idParam]);
-        this.producto= data.producto
-        console.log("Producto");
-        console.log(this.producto)
-        this.http.get('http://127.0.0.1:3333/productos').subscribe((data: any) => {
-          this.productos = data.productos
-          console.log("Productos");
-          console.log(this.productos)
-          
-          
-          
-          
-        
-          
-        }, error =>{
-          console.log(error)
-    
-        });
-        this.producto = {
-          id: data.producto.id,
-          nombre_producto: data.producto.nombre_producto,
-          descripcion: data.producto.descripcion,
-          precio: data.producto.precio,
-          user_id: data.producto.user_id
+    if (!this.idParam) {
+      this.authService.productos().subscribe(
+        (data: any) => {
+          this.router.navigate(['/productos']);
+          this.productos = data.productos;
+          console.log('Productos');
+          console.log(this.productos);
+        },
+        (error) => {
+          console.log(error);
         }
-  
-        
-      }, error =>{
-        console.log(error)
-  
-      });
+      );
+    } else if (this.idParam) {
+      this.authService.productos(this.idParam).subscribe(
+        (data: any) => {
+          this.router.navigate(['/productos/' + this.idParam]);
+          this.producto = data.producto;
+          console.log('Producto');
+          console.log(this.producto);
+          this.http.get('http://127.0.0.1:3333/productos').subscribe(
+            (data: any) => {
+              this.productos = data.productos;
+              console.log('Productos');
+              console.log(this.productos);
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
+          this.producto = {
+            id: data.producto.id,
+            nombre_producto: data.producto.nombre_producto,
+            descripcion: data.producto.descripcion,
+            precio: data.producto.precio,
+            user_id: data.producto.user_id,
+          };
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
     }
-
   }
 
-  selectChangeHandler (event: any) {
+
+
+
+
+
+
+
+
+
+
+
+  
+  selectChangeHandler(event: any) {
     this.selectedId = event.target.value;
     console.log(this.selectedId);
-    this.authService.productos(this.selectedId).subscribe((data: any) => {
-      this.router.navigate(['/productos/'+this.selectedId]);
-      this.producto= data.producto
-      console.log("Producto");
-      console.log(this.producto)
-      
-      
-      
-    }, error =>{
-      console.log(error)
-
-    });
+    this.authService.productos(this.selectedId).subscribe(
+      (data: any) => {
+        this.router.navigate(['/productos/' + this.selectedId]);
+        this.producto = data.producto;
+        console.log('Producto');
+        console.log(this.producto);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   onSelectComentarios(producto: Producto): void {
     this.selectedProducto = producto;
-    console.log(producto)
-    this.authService.comentariosProducto(producto.id).subscribe((data: any) => {
-      this.router.navigate(['/comentarios/producto/' + producto.id]);
-      
-    }, error =>{
-      console.log(error);
-
-    });
+    console.log(producto);
+    this.authService.comentariosProducto(producto.id).subscribe(
+      (data: any) => {
+        this.router.navigate(['/comentarios/producto/' + producto.id]);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
+  onDeletecomentario(coemnta: Comentario) {
+    this.selectedproducto = coemnta;
+    console.log(coemnta);
+
+    this.authService
+      .deletecomentario(coemnta.id)
+
+      .subscribe(
+        (data: any) => {
+          console.log(coemnta.id);
+          console.log('Producto eliminar');
+          console.log(coemnta);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  }
 }

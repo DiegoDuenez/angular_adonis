@@ -1,0 +1,45 @@
+<app-nav-bar-inicio-sesion></app-nav-bar-inicio-sesion>
+
+<div class="card" style="width: 18rem">
+  <div class="card-body">
+    <h5 class="card-title">Comentario a  actualizar:</h5>
+    <div class="mb-3">
+      <div>
+        <form
+          class="login"
+          [formGroup]="registroForm"
+          (ngSubmit)="registroPro()"
+        >
+          <div class="form-group">
+            <label for="inputtitulo">Titulo</label>
+            <input
+              type="text"
+              class="form-control"
+              id="inputtitulo"
+              formControlName="titulo"
+              [class.is-invalid]="tituloValidate"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="inputcontenido">Descripcion del comentario</label>
+            <input
+              type="text"
+              class="form-control"
+              id="inputcontenido"
+              formControlName="contenido"
+              [class.is-invalid]="contenidoValidate"
+            />
+          </div>
+
+
+          <div class="form-group">
+            <button type="submit" class="btn btn-lg btn-block btn-success">
+              Registrar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
