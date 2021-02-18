@@ -24,6 +24,7 @@ export class ComentarioUpdateComponent implements OnInit {
   prodNombre!:String;
   id2!: Number;
   selectedProducto!: Number;
+  
 
   constructor(
     private fb: FormBuilder,
@@ -37,7 +38,7 @@ export class ComentarioUpdateComponent implements OnInit {
 
   ngOnInit(): void {
     this.idParam = this.route.snapshot.params['id'];
-
+    this.idUser()
     this.http.get('http://127.0.0.1:3333/productos').subscribe(
       (data: any) => {
         this.productos = data.productos;
@@ -55,6 +56,8 @@ export class ComentarioUpdateComponent implements OnInit {
             console.log(prod.nombre_producto);
             console.log(this.prodNombre);
         }
+
+       
 
       },
       (error) => {
@@ -74,15 +77,7 @@ export class ComentarioUpdateComponent implements OnInit {
     this.authService.perfil(this.user).subscribe(
       (data: any) => {
         this.id2 = data['id'];
-        this.authService.misProductos(this.id2).subscribe(
-          (data: any) => {
-            this.productos = data.productos;
-
-          },
-          (error) => {
-            console.log(error);
-          }
-        );
+        
       },
       (error) => {
         console.log(error);
@@ -110,17 +105,26 @@ export class ComentarioUpdateComponent implements OnInit {
     
     
     if (this.registroForm.invalid) {
+      
       return Object.values(this.registroForm.controls).forEach((control) => {
         control.markAsTouched();
+       
       });
+      
     } else {
       this.setUser();
+      
       this.authService.comentariosActualizar(this.comentar, this.idParam).subscribe(
         (data) => {
           
+          this.router.navigate(['comentarios/usuario/' + this.id2]);
         },
         (error) => {
+          
+          
           console.log(error);
+          console.log("invalido")
+         
         }
       );
     }
@@ -158,4 +162,6 @@ export class ComentarioUpdateComponent implements OnInit {
       updated_at: this.registroForm.get('updated_at')?.value,
     };
   }
+
+  
 }

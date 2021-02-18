@@ -25,7 +25,9 @@ export class ComentariosUsuarioComponent implements OnInit {
   selectedproducto!: Comentario;
   selectedProducto2!:Comentario;
   selectedComentario!:Comentario;
-
+  id!: Number;
+  canDelete!: boolean;
+  canUpdate!: boolean;
 
   constructor(
     public authService: AuthService,
@@ -36,6 +38,7 @@ export class ComentariosUsuarioComponent implements OnInit {
 
   ngOnInit(): void {
     this.idParam = this.route.snapshot.params['id'];
+    this.userId()
     this.authService.productos().subscribe(
       (data: any) => {
         this.productos = data.productos;
@@ -160,13 +163,21 @@ export class ComentariosUsuarioComponent implements OnInit {
 
   onSelectAtualizarComentarios(comentario: Comentario): void {
     this.selectedProducto2 = comentario;
-    
-    this.authService.comentariosUsuario(this.selectedProducto2.id).subscribe((data: any) => {
-      this.router.navigate(['/update/comentario/' + this.selectedProducto2.id]);
-    }, error =>{
-      console.log(error);
+    if(this.selectedProducto2.user_id == this.id){
+      this.canUpdate = true;  
+      this.authService.comentariosUsuario(this.selectedProducto2.id).subscribe((data: any) => {
+        this.router.navigate(['/actualizar/comentario/' + this.selectedProducto2.id]);
+      }, error =>{
+        console.log(error);
+  
+      });
 
-    });
+    
+    }else{
+      
+      this.canUpdate = false;
+    }
+    
   }
 
   onSelectComentarios2(comentar: Comentario): void {
@@ -179,19 +190,35 @@ export class ComentariosUsuarioComponent implements OnInit {
         console.log(error);
       }
     );
-}
+  }
 
+  onDeletecomentarioUsuario(comentario: Comentario) {
+    this.selectedComentario = comentario;
+    if(this.selectedComentario.user_id == this.id){
+      this.canDelete = true;  
+      let index = this.comentarios.findIndex( e => e.id == this.selectedComentario.id);
+      if(index !== -1){
+        this.comentarios.splice(index, 1);
+      }
+      this.authService.deletecomentario(comentario.id).subscribe(
+        (data: any) => {    
+               
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    }
+    else{
+      this.canDelete = false;
+    }
+  }
 
-
-
-  onDeletecomentarioUsuario(coemnta: Comentario) {
-    this.selectedproducto = coemnta;
-    console.log(coemnta);
-    this.authService.deletecomentario(coemnta.id).subscribe(
+  userId() {
+    this.authService.perfil(this.usuario).subscribe(
       (data: any) => {
         
-        
-       
+        this.id = data['id'];
       },
       (error) => {
         console.log(error);

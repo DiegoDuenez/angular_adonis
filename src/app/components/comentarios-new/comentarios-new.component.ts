@@ -37,6 +37,7 @@ export class ComentariosNewComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.idUser()
     this.http.get('http://127.0.0.1:3333/productos').subscribe(
       (data: any) => {
         this.productos = data.productos;
@@ -67,9 +68,10 @@ export class ComentariosNewComponent implements OnInit {
       (data: any) => {
         
         this.id2 = data['id'];
+        console.log(this.id2)
         this.authService.misProductos(this.id2).subscribe(
           (data: any) => {
-            this.productos = data.productos;
+            
             
           },
           (error) => {

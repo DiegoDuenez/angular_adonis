@@ -19,7 +19,7 @@
   <table class="table separacion personas">
     <thead class="thead-dark">
       <tr>
-        <th scope="col">ID</th>
+       
         <th scope="col">Nombre</th>
         <th scope="col">Descripción</th>
         <th scope="col">Precio</th>
@@ -29,7 +29,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let producto of productos">
-        <th scope="row">{{ producto.id }}</th>
+        
         <td>{{ producto.nombre_producto }}</td>
         <td>{{ producto.descripcion }}</td>
         <td>${{ producto.precio }}</td>
@@ -69,7 +69,7 @@
   <table class="table separacion personas">
     <thead class="thead-dark">
       <tr>
-        <th scope="col">ID</th>
+        
         <th scope="col">Nombre</th>
         <th scope="col">Descripción</th>
         <th scope="col">Precio</th>
@@ -79,7 +79,7 @@
     </thead>
     <tbody>
       <tr>
-        <th scope="row">{{ producto.id }}</th>
+        
         <td>{{ producto.nombre_producto }}</td>
         <td>{{ producto.descripcion }}</td>
         <td>${{ producto.precio }}</td>

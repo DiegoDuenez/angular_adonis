@@ -18,12 +18,17 @@ export class ComentariosProductoComponent implements OnInit {
   productos!: Producto[];
   comentario!: Comentario;
   comentarios!: Comentario[];
-  selectedproducto!: Comentario;
+  selectedProducto!: Comentario;
   idParam!: Number;
   selectedId!: Number;
   userNombre!: String;
   prodNombre!: String;
   idUser!: Number;
+  id!: Number
+  canDelete!: boolean;
+  canUpdate!: boolean;
+  selectedComentario!: Comentario;
+  nomUser!: String;
 
   constructor(
     public authService: AuthService,
@@ -34,6 +39,8 @@ export class ComentariosProductoComponent implements OnInit {
 
   ngOnInit(): void {
     this.idParam = this.route.snapshot.params['id'];
+
+    this.userId()
 
     this.authService.usuarios().subscribe(
       (data: any) => {
@@ -66,7 +73,7 @@ export class ComentariosProductoComponent implements OnInit {
                   
                 }
               }
-              for (let prod of this.productos) {
+             /* for (let prod of this.productos) {
                 for (let coment of this.comentarios) {
                   if (coment.producto_id == prod.id) {
                    
@@ -74,16 +81,18 @@ export class ComentariosProductoComponent implements OnInit {
                     
                   }
                 }
-              }
+              }*/
               for (let user of this.usuarios) {
                 for (let coment of this.comentarios) {
                   if (coment.user_id == user.id) {
-                    
+                  
                     this.userNombre = user.nombre;
+                    console.log(user.nombre)
                    
                   }
                 }
               }
+              
             },
             (error) => {
               console.log(error);
@@ -122,6 +131,7 @@ export class ComentariosProductoComponent implements OnInit {
                   if (coment.user_id == user.id) {
                   
                     this.userNombre = user.nombre;
+                    
                    
                   }
                 }
@@ -139,6 +149,45 @@ export class ComentariosProductoComponent implements OnInit {
       );
     }
   }
+
+  userId() {
+    this.authService.perfil(this.usuario).subscribe(
+      (data: any) => {
+        
+        this.id = data['id'];
+        this.nomUser = data['nombre']
+        console.log(this.nomUser)
+        this.authService.misProductos(this.id).subscribe(
+          (data: any) => {
+           
+            
+           /* for (let com of this.comentarios) {
+              
+              if (this.id == com.user_id) {
+                  
+                this.canDeleteUpdate = true;
+                console.log("Puede eliminar y act")
+                  
+              }
+              else{
+                console.log("Error linea 178")
+              }
+              
+            }*/
+            
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  
 
   selectChangeHandler(event: any) {
     this.selectedId = event.target.value;
@@ -174,16 +223,46 @@ export class ComentariosProductoComponent implements OnInit {
     );
   }
 
-  onDeletecomentario(comentario: Comentario) {
-    this.selectedproducto = comentario;
-    
-    this.authService.deletecomentario(comentario.id).subscribe(
-      (data: any) => {
-        
-      },
-      (error) => {
+  onSelectAtualizarComentarios(comentario: Comentario): void {
+    this.selectedProducto = comentario;
+    if(this.selectedProducto.user_id == this.id){
+      this.canUpdate = true;  
+      this.authService.comentariosUsuario(this.selectedProducto.id).subscribe((data: any) => {
+        this.router.navigate(['/actualizar/comentario/' + this.selectedProducto.id]);
+      }, error =>{
         console.log(error);
-      }
-    );
+  
+      });
+
+    
+    }else{
+      this.canUpdate = false;
+    }
+    
   }
+
+
+  onDeletecomentarioUsuario(comentario: Comentario) {
+    this.selectedComentario = comentario;
+    if(this.selectedComentario.user_id == this.id){
+      this.canDelete = true;   
+      let index = this.comentarios.findIndex( e => e.id == this.selectedComentario.id);
+      if(index !== -1){
+        this.comentarios.splice(index, 1);
+      }
+      this.authService.deletecomentario(comentario.id).subscribe(
+        (data: any) => {    
+              
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    }
+    else{
+      this.canDelete = false;
+    }
+  }
+
+ 
 }
