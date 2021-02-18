@@ -1,19 +1,24 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
 import { User } from '../models/user';
 import { IResponse } from '../models/i-response';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Producto } from '../models/producto';
 import { Comentario } from '../models/comentario';
+import { tap } from 'rxjs/operators';
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+
   apiURL = environment.apiURL;
   httpheaders: HttpHeaders = new HttpHeaders();
+  private _refresh$ = new Subject<void>();
+
   constructor(
     private httpClient: HttpClient,
     private router: Router,
@@ -25,6 +30,11 @@ export class AuthService {
       'Bearer' + localStorage.getItem('token')
     );
   }
+
+  get refresh$(){
+    return this._refresh$;
+  }
+  
 //registrar persona
   registro(user: User): Observable<any> {
     return this.httpClient.post(`${this.apiURL}registro`, user);
@@ -44,26 +54,10 @@ export class AuthService {
     return this.httpClient.put(`${this.apiURL}actualizar/comentarios/`+id,comentario);
   }
 
-
-
-
-
- 
-
-
-
-
-
-
-
   //registrar comentarios
   comentariosNew(comentar: Comentario): Observable<any> {
     return this.httpClient.post(`${this.apiURL}registrar/comentarios`,comentar);
   }
-
-
-
-
 
 
 //loggin
@@ -75,12 +69,13 @@ export class AuthService {
     localStorage.removeItem('token');
     console.log('token remove');
     this.router.navigate(['/login']);
+    return this.httpClient.delete(`${this.apiURL}logout`)
   }
 //ver perfil
   perfil(user: User): Observable<any> {
     let httpheaders: HttpHeaders = new HttpHeaders();
     const token = localStorage.getItem('token');
-    console.log('get token', token);
+    
     httpheaders = httpheaders.append(
       'Authorization',
       'Bearer' + localStorage.getItem('token')
@@ -91,7 +86,7 @@ export class AuthService {
   registrarProductos(user: User): Observable<any> {
     let httpheaders: HttpHeaders = new HttpHeaders();
     const token = localStorage.getItem('token');
-    console.log('get token', token);
+   
     httpheaders = httpheaders.append(
       'Authorization',
       'Bearer' + localStorage.getItem('token')
@@ -116,7 +111,7 @@ export class AuthService {
   }
 
   misProductos(id: Number) {
-    return this.httpClient.get(`${this.apiURL}productos/usuario/` + id);
+    return this.httpClient.get(`${this.apiURL}productos/usuario/` + id)
   }
 
   productosUsuario(id: Number) {
@@ -137,21 +132,18 @@ export class AuthService {
     return this.httpClient.get(`${this.apiURL}comentarios/usuario/` + id);
   }
 
-
-  
-
-
-
-
-
-
-
-  deleteproducto(id: Number) {
-    //return this.httpClient.delete(`${this.apiURL}borrar/comentarios/`)
-    return this.httpClient.delete(`${this.apiURL}borrar/productos/` + id);
-  }
-
   deletecomentario(id: Number) {
     return this.httpClient.delete(`${this.apiURL}borrar/comentarios/` + id);
   }
+
+  deleteproducto(id: Number) {
+    //return this.httpClient.delete(`${this.apiURL}borrar/comentarios/`)
+    
+    return this.httpClient.delete(`${this.apiURL}borrar/productos/` + id)
+   
+    
+    
+    
+  }
+
 }

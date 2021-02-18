@@ -28,8 +28,8 @@ const routes: Routes = [
   { path: 'registrar/productos', component: ProductosNewComponent },
 
   
-  { path: 'update/productos', component: ProductoUpdateComponent},
-  { path: 'update/producto/:id', component: ProductoUpdateComponent},
+  { path: 'actualizar/productos', component: ProductoUpdateComponent},
+  { path: 'actualizar/producto/:id', component: ProductoUpdateComponent},
 
   { path: 'update/comentario/:id', component: ComentarioUpdateComponent},
   { path: 'update/comentarios', component: ComentarioUpdateComponent},
@@ -39,8 +39,8 @@ const routes: Routes = [
   { path: 'comentarios/productos', component: ComentariosProductoComponent },
   { path: 'comentarios/usuario/:id', component: ComentariosUsuarioComponent },
   { path: 'comentarios/usuarios', component: ComentariosUsuarioComponent },
-  //{ path: '', redirectTo: 'login', pathMatch: 'full' },
-  //{ path: '**', redirectTo: 'login' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '**', redirectTo: 'login' }
 ];
 
 @NgModule({

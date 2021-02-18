@@ -37,8 +37,7 @@ export class ProductosComponent implements OnInit {
         (data: any) => {
           this.router.navigate(['/productos']);
           this.productos = data.productos;
-          console.log('Productos');
-          console.log(this.productos);
+          
         },
         (error) => {
           console.log(error);
@@ -49,13 +48,11 @@ export class ProductosComponent implements OnInit {
         (data: any) => {
           this.router.navigate(['/productos/' + this.idParam]);
           this.producto = data.producto;
-          console.log('Producto');
-          console.log(this.producto);
+         
           this.http.get('http://127.0.0.1:3333/productos').subscribe(
             (data: any) => {
               this.productos = data.productos;
-              console.log('Productos');
-              console.log(this.productos);
+             
             },
             (error) => {
               console.log(error);
@@ -76,27 +73,14 @@ export class ProductosComponent implements OnInit {
     }
   }
 
-
-
-
-
-
-
-
-
-
-
-
-  
   selectChangeHandler(event: any) {
     this.selectedId = event.target.value;
-    console.log(this.selectedId);
+    
     this.authService.productos(this.selectedId).subscribe(
       (data: any) => {
         this.router.navigate(['/productos/' + this.selectedId]);
         this.producto = data.producto;
-        console.log('Producto');
-        console.log(this.producto);
+       
       },
       (error) => {
         console.log(error);
@@ -106,7 +90,7 @@ export class ProductosComponent implements OnInit {
 
   onSelectComentarios(producto: Producto): void {
     this.selectedProducto = producto;
-    console.log(producto);
+  
     this.authService.comentariosProducto(producto.id).subscribe(
       (data: any) => {
         this.router.navigate(['/comentarios/producto/' + producto.id]);
@@ -117,18 +101,16 @@ export class ProductosComponent implements OnInit {
     );
   }
 
-  onDeletecomentario(coemnta: Comentario) {
-    this.selectedproducto = coemnta;
-    console.log(coemnta);
+  onDeletecomentario(comentario: Comentario) {
+    this.selectedproducto = comentario;
+    
 
     this.authService
-      .deletecomentario(coemnta.id)
+      .deletecomentario(comentario.id)
 
       .subscribe(
         (data: any) => {
-          console.log(coemnta.id);
-          console.log('Producto eliminar');
-          console.log(coemnta);
+         
         },
         (error) => {
           console.log(error);

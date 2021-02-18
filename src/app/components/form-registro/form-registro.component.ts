@@ -24,7 +24,7 @@ export class FormRegistroComponent implements OnInit {
   ngOnInit(): void {}
 
   registro(): void {
-    console.log(this.registroForm.value);
+    
     if (this.registroForm.invalid) {
       return Object.values(this.registroForm.controls).forEach((control) => {
         control.markAsTouched();

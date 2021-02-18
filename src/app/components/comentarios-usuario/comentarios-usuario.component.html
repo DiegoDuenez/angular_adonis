@@ -42,9 +42,9 @@
     </div>
   </div>
 </div>
-<div
-  class="container bg-light ctn shadow rounded"
-  *ngIf="comentarios.length == 0"
->
+<div class="container bg-light ctn shadow rounded" *ngIf="comentarios.length == 0">
   <h4 class="text-secondary">NO HAY COMENTARIOS DE ESTE USUARIO</h4>
+</div>
+<div class="container bg-light ctn shadow rounded" *ngIf="!idParam">
+  <h4 class="text-secondary">ELIGA UN USUARIO PARA VER SUS COMENTARIOS</h4>
 </div>

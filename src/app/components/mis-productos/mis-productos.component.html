@@ -18,14 +18,14 @@
         <td>{{ producto.descripcion }}</td>
         <td>${{ producto.precio }}</td>
         <td>          
-          <button class="btn btn-success btn" (click)="onSelectComentarios2(producto)">Comentarios</button> &nbsp;
-          <button class="btn btn-warning btn" routerLink="/update/productos" (click)="onSelectAtualizarComentarios(producto)">
+          <button class="btn btn-success btn" (click)="onSelectComentarios(producto)">Comentarios</button> &nbsp;
+          <button class="btn btn-warning btn" routerLink="/actualizar/productos" (click)="onSelectAtualizarComentarios(producto)">
             Actualizar
           </button>
           &nbsp;
           <button
             class="btn btn-danger btn"
-            (click)="onSelectComentarios(producto)"
+            (click)="onDeleteProducto(producto)"
           >
             Eliminar
           </button>

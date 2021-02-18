@@ -34,9 +34,9 @@
     </button>
   </div>
 </div>
-<div
-  class="container bg-light ctn shadow rounded"
-  *ngIf="comentarios.length == 0"
->
+<div class="container bg-light ctn shadow rounded" *ngIf="comentarios.length == 0">
   <h4 class="text-secondary">NO HAY COMENTARIOS PARA ESTE PRODUCTO</h4>
+</div>
+<div class="container bg-light ctn shadow rounded" *ngIf="!idParam">
+  <h4 class="text-secondary">ELIGA UN PRODUCTO PARA VER SUS COMENTARIOS</h4>
 </div>

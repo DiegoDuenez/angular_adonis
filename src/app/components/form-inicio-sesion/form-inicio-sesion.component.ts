@@ -35,9 +35,9 @@ export class FormInicioSesionComponent implements OnInit {
       this.authService.login(this.user).subscribe(
         (data: any) => {
           this.router.navigate(['/perfil']);
-          console.log('Inicio de sesion completado');
+          
           const token = data.token.token;
-          console.log('token', token);
+         
           localStorage.setItem('token', token);
           this.router.navigate(['/perfil']);
         },

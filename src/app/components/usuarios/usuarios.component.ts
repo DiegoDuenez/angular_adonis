@@ -1,12 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-  FormControl,
-  NgForm,
-} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from '../../models/user';
@@ -35,8 +28,7 @@ export class UsuariosComponent implements OnInit {
         (data: any) => {
           this.router.navigate(['/usuarios']);
           this.usuarios = data.usuarios;
-          console.log('Usuarios');
-          console.log(this.usuarios);
+         
         },
         (error) => {
           console.log(error);
@@ -47,13 +39,10 @@ export class UsuariosComponent implements OnInit {
         (data: any) => {
           this.router.navigate(['/usuarios/' + this.idParam]);
           this.usuario = data.usuario;
-          console.log('Usuario');
-          console.log(this.usuario);
+        
           this.http.get('http://127.0.0.1:3333/usuarios').subscribe(
             (data: any) => {
               this.usuarios = data.usuarios;
-              console.log('Usuarios');
-              console.log(this.usuarios);
             },
             (error) => {
               console.log(error);
@@ -77,13 +66,10 @@ export class UsuariosComponent implements OnInit {
 
   selectChangeHandler(event: any) {
     this.selectedId = event.target.value;
-    console.log(this.selectedId);
     this.authService.usuarios(this.selectedId).subscribe(
       (data: any) => {
         this.router.navigate(['/usuarios/' + this.selectedId]);
         this.usuario = data.usuario;
-        console.log('Usuario');
-        console.log(this.usuario);
       },
       (error) => {
         console.log(error);

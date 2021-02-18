@@ -5,7 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { Producto } from '../../models/producto';
 import { User } from '../../models/user';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-mis-productos',
@@ -16,12 +16,15 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class MisProductosComponent implements OnInit {
+
   productos!: Producto[];
   user!: User;
-
+  suscription!: Subscription;
   id!: Number;
 
   selectedProducto!: Producto;
+
+  
 
   constructor(
     public authService: AuthService,
@@ -31,21 +34,21 @@ export class MisProductosComponent implements OnInit {
 
   ngOnInit(): void {
     this.idUser();
+    
   }
+
+  
 
   idUser() {
     this.authService.perfil(this.user).subscribe(
       (data: any) => {
-        console.log('Perfil del usuario');
-        console.log(data['nombre']);
         this.id = data['id'];
         data['id'] = this.route.snapshot.params['id'];
         this.authService.misProductos(this.id).subscribe(
           (data: any) => {
             this.router.navigate(['/productos/usuario/' + this.id]);
             this.productos = data.productos;
-            console.log('Mis productos');
-            console.log(this.productos);
+
           },
           (error) => {
             console.log(error);
@@ -62,9 +65,9 @@ export class MisProductosComponent implements OnInit {
 
   onSelectAtualizarComentarios(producto: Producto): void {
     this.selectedProducto = producto;
-    console.log(producto)
+
     this.authService.comentariosProducto(producto.id).subscribe((data: any) => {
-      this.router.navigate(['/update/producto/' + producto.id]);
+      this.router.navigate(['/actualizar/producto/' + producto.id]);
       
     }, error =>{
       console.log(error);
@@ -74,9 +77,9 @@ export class MisProductosComponent implements OnInit {
 
 
 //seleccionar
-  onSelectComentarios2(producto: Producto): void {
+  onSelectComentarios(producto: Producto): void {
     this.selectedProducto = producto;
-    console.log(producto);
+
     this.authService.comentariosProducto(producto.id).subscribe(
       (data: any) => {
         this.router.navigate(['/comentarios/producto/' + producto.id]);
@@ -90,18 +93,26 @@ export class MisProductosComponent implements OnInit {
 
 
 //eliminar
-onSelectComentarios(producto: Producto) {
+  onDeleteProducto(producto: Producto) {
     this.selectedProducto = producto;
+    let index = this.productos.findIndex( e => e.id == this.selectedProducto.id);
+    if(index !== -1){
+      this.productos.splice(index, 1);
+    }
+    
     console.log(producto);
     this.authService.deleteproducto(producto.id).subscribe(
       (data: any) => {
-        console.log(producto.id);
-        console.log('Producto eliminar');
-        console.log(producto);
+      
+       
       },
       (error) => {
         console.log(error);
       }
     );
   }
+
+  
+
+  
 }

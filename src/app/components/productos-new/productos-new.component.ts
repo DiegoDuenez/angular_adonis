@@ -41,16 +41,12 @@ export class ProductosNewComponent implements OnInit {
   idUser() {
     this.authService.perfil(this.user).subscribe(
       (data: any) => {
-        console.log('Perfil del usuario');
-        console.log(data['nombre']);
-        console.log(data['id']);
-        console.log(data['nombre']);
+        
         this.id2 = data['id'];
         this.authService.misProductos(this.id2).subscribe(
           (data: any) => {
             this.productos = data.productos;
-            console.log('Mis productos');
-            console.log(this.productos);
+            
           },
           (error) => {
             console.log(error);
@@ -64,18 +60,8 @@ export class ProductosNewComponent implements OnInit {
   }
 
 
-
-
-
-
-
-
-
-
-
-
   registroPro(): void {
-    console.log(this.registroForm.value);
+    
     if (this.registroForm.invalid) {
       return Object.values(this.registroForm.controls).forEach((control) => {
         control.markAsTouched();
@@ -84,8 +70,8 @@ export class ProductosNewComponent implements OnInit {
       this.setData();
       this.authService.registroProduct(this.productos).subscribe(
         (data) => {
-          this.router.navigate(['registrar/comentarios']);
-          console.log('Registro completado');
+          this.router.navigate(['productos/usuario/' + this.id2]);
+       
         },
         (error) => {
           console.log(error);

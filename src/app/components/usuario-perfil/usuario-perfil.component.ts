@@ -12,10 +12,10 @@ import { User } from '../../models/user';
 })
 export class UsuarioPerfilComponent implements OnInit {
   user!: User;
-  id!: Int16Array;
+  id!: Number;
   nombre!: String;
   apellidos!: String;
-  edad!: Int16Array;
+  edad!: Number;
   email!: String;
 
   constructor(
@@ -28,8 +28,6 @@ export class UsuarioPerfilComponent implements OnInit {
     this.authService.perfil(this.user).subscribe(
       (data: any) => {
         this.router.navigate(['/perfil']);
-        console.log('Perfil del usuario');
-        console.log(data['nombre']);
         this.id = data['id'];
         this.nombre = data['nombre'];
         this.apellidos = data['apellidos'];
