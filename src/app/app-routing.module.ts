@@ -13,32 +13,27 @@ import { ComentariosNewComponent } from './components/comentarios-new/comentario
 import { ProductosNewComponent } from './components/productos-new/productos-new.component';
 import { ProductoUpdateComponent } from './components/producto-update/producto-update.component';
 import { ComentarioUpdateComponent } from './components/comentario-update/comentario-update.component';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   { path: 'login', component: FormInicioSesionComponent },
   { path: 'registro', component: FormRegistroComponent },
-  { path: 'perfil', component: UsuarioPerfilComponent },
-  { path: 'usuarios', component: UsuariosComponent },
-  { path: 'usuarios/:id', component: UsuariosComponent },
-  { path: 'productos', component: ProductosComponent },
-  { path: 'productos/:id', component: ProductosComponent },
-  { path: 'productos/usuario/:id', component: MisProductosComponent },
-
-  { path: 'registrar/comentarios', component: ComentariosNewComponent },
-  { path: 'registrar/productos', component: ProductosNewComponent },
-
-  
-  { path: 'actualizar/productos', component: ProductoUpdateComponent},
-  { path: 'actualizar/producto/:id', component: ProductoUpdateComponent},
-
-  { path: 'update/comentario/:id', component: ComentarioUpdateComponent},
-  { path: 'update/comentarios', component: ComentarioUpdateComponent},
-
-
-  { path: 'comentarios/producto/:id', component: ComentariosProductoComponent },
-  { path: 'comentarios/productos', component: ComentariosProductoComponent },
-  { path: 'comentarios/usuario/:id', component: ComentariosUsuarioComponent },
-  { path: 'comentarios/usuarios', component: ComentariosUsuarioComponent },
+  { path: 'perfil', component: UsuarioPerfilComponent, canActivate: [AuthGuard]},
+  { path: 'usuarios', component: UsuariosComponent , canActivate: [AuthGuard]},
+  { path: 'usuarios/:id', component: UsuariosComponent, canActivate: [AuthGuard]},
+  { path: 'productos', component: ProductosComponent, canActivate: [AuthGuard] },
+  { path: 'productos/:id', component: ProductosComponent, canActivate: [AuthGuard] },
+  { path: 'productos/usuario/:id', component: MisProductosComponent, canActivate: [AuthGuard] },
+  { path: 'registrar/comentarios', component: ComentariosNewComponent, canActivate: [AuthGuard] },
+  { path: 'registrar/productos', component: ProductosNewComponent, canActivate: [AuthGuard] },
+  { path: 'actualizar/productos', component: ProductoUpdateComponent, canActivate: [AuthGuard]},
+  { path: 'actualizar/producto/:id', component: ProductoUpdateComponent, canActivate: [AuthGuard]},
+  { path: 'update/comentario/:id', component: ComentarioUpdateComponent, canActivate: [AuthGuard]},
+  { path: 'update/comentarios', component: ComentarioUpdateComponent, canActivate: [AuthGuard]},
+  { path: 'comentarios/producto/:id', component: ComentariosProductoComponent, canActivate: [AuthGuard] },
+  { path: 'comentarios/productos', component: ComentariosProductoComponent, canActivate: [AuthGuard] },
+  { path: 'comentarios/usuario/:id', component: ComentariosUsuarioComponent , canActivate: [AuthGuard]},
+  { path: 'comentarios/usuarios', component: ComentariosUsuarioComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: 'login' }
 ];

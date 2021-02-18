@@ -64,6 +64,13 @@ export class AuthService {
   login(user: User): Observable<any> {
     return this.httpClient.post(`${this.apiURL}login`, user);
   }
+
+//loggedIn
+  loggedIn(){
+    return !!
+    localStorage.getItem('token')
+  }
+
 //loggOut
   logout() {
     localStorage.removeItem('token');
@@ -71,6 +78,7 @@ export class AuthService {
     this.router.navigate(['/login']);
     return this.httpClient.delete(`${this.apiURL}logout`)
   }
+
 //ver perfil
   perfil(user: User): Observable<any> {
     let httpheaders: HttpHeaders = new HttpHeaders();
@@ -82,6 +90,7 @@ export class AuthService {
     );
     return this.httpClient.get(`${this.apiURL}perfil`);
   }
+  
 //registrar productos
   registrarProductos(user: User): Observable<any> {
     let httpheaders: HttpHeaders = new HttpHeaders();

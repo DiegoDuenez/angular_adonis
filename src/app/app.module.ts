@@ -24,6 +24,7 @@ import { UsuariosUpdateComponent } from './components/usuarios-update/usuarios-u
 import { ProductoUpdateComponent } from './components/producto-update/producto-update.component';
 import { ComentarioUpdateComponent } from './components/comentario-update/comentario-update.component';
 
+import { AuthGuard } from './guards/auth.guard'
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { ComentarioUpdateComponent } from './components/comentario-update/coment
     ProductoUpdateComponent,
     ComentarioUpdateComponent,
     
+    
   ],
   imports: [
     BrowserModule,
@@ -56,10 +58,12 @@ import { ComentarioUpdateComponent } from './components/comentario-update/coment
   ],
   providers: [
     {
+      
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,
       multi: true
-    }
+    },
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })

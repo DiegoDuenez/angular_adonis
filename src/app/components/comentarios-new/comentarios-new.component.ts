@@ -85,13 +85,12 @@ export class ComentariosNewComponent implements OnInit {
 
 
 
-
-
   selectChangeHandler(event: any) {
     this.selectedProducto = event.target.value;
-    
+    console.log(this.selectedProducto)
     this.authService.comentariosProducto(this.selectedProducto).subscribe(
       (data: any) => {
+        
       },
       (error) => {
         console.log(error);
