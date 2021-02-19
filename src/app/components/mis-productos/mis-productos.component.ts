@@ -46,7 +46,7 @@ export class MisProductosComponent implements OnInit {
         data['id'] = this.route.snapshot.params['id'];
         this.authService.misProductos(this.id).subscribe(
           (data: any) => {
-            this.router.navigate(['/productos/usuario/' + this.id]);
+            this.router.navigate(['/misproductos/usuario/' + this.id]);
             this.productos = data.productos;
 
           },

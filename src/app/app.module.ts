@@ -24,7 +24,8 @@ import { UsuariosUpdateComponent } from './components/usuarios-update/usuarios-u
 import { ProductoUpdateComponent } from './components/producto-update/producto-update.component';
 import { ComentarioUpdateComponent } from './components/comentario-update/comentario-update.component';
 
-import { AuthGuard } from './guards/auth.guard'
+import { AuthGuard } from './guards/auth.guard';
+import { ProductosUsuarioComponent } from './components/productos-usuario/productos-usuario.component'
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { AuthGuard } from './guards/auth.guard'
     UsuariosUpdateComponent,
     ProductoUpdateComponent,
     ComentarioUpdateComponent,
+    ProductosUsuarioComponent,
     
     
   ],

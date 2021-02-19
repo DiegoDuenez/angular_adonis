@@ -14,6 +14,7 @@ import { ProductosNewComponent } from './components/productos-new/productos-new.
 import { ProductoUpdateComponent } from './components/producto-update/producto-update.component';
 import { ComentarioUpdateComponent } from './components/comentario-update/comentario-update.component';
 import { AuthGuard } from './guards/auth.guard';
+import { ProductosUsuarioComponent } from './components/productos-usuario/productos-usuario.component';
 
 const routes: Routes = [
   { path: 'login', component: FormInicioSesionComponent },
@@ -23,7 +24,9 @@ const routes: Routes = [
   { path: 'usuarios/:id', component: UsuariosComponent, canActivate: [AuthGuard]},
   { path: 'productos', component: ProductosComponent, canActivate: [AuthGuard] },
   { path: 'productos/:id', component: ProductosComponent, canActivate: [AuthGuard] },
-  { path: 'productos/usuario/:id', component: MisProductosComponent, canActivate: [AuthGuard] },
+  { path: 'misproductos/usuario/:id', component: MisProductosComponent, canActivate: [AuthGuard] },
+  { path: 'producto/usuarios', component: ProductosUsuarioComponent, canActivate: [AuthGuard]},
+  { path: 'producto/usuario/:id', component: ProductosUsuarioComponent, canActivate: [AuthGuard]},
   { path: 'registrar/comentarios', component: ComentariosNewComponent, canActivate: [AuthGuard] },
   { path: 'registrar/productos', component: ProductosNewComponent, canActivate: [AuthGuard] },
   { path: 'actualizar/productos', component: ProductoUpdateComponent, canActivate: [AuthGuard]},

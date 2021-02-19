@@ -1,0 +1,101 @@
+<app-nav-bar-inicio-sesion></app-nav-bar-inicio-sesion>
+
+<div class="container ctn" *ngIf="!idParam">
+  <form>
+    <div class="form-row align-items-center">
+      <div class="col-auto my-1">
+        <select class="custom-select" (change)="selectChangeHandler($event)">
+          <option>Seleccione usuario...</option>
+          <option *ngFor="let usuario of usuarios" [value]="usuario.id">
+            {{ usuario.nombre }}
+          </option>
+        </select>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="container" *ngIf="!idParam">
+  <table class="table separacion personas">
+    <thead class="thead-dark">
+      <tr>
+       
+        <th scope="col">Nombre</th>
+        <th scope="col">Descripción</th>
+        <th scope="col">Precio</th>
+        <th scope="col">Vendedor</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let producto of productos">
+        
+        <td>{{ producto.nombre_producto }}</td>
+        <td>{{ producto.descripcion }}</td>
+        <td>${{ producto.precio }}</td>
+        <td>{{ producto.user_id }}</td>
+        <td>
+          <div class="btn-group">
+            <button
+              type="button"
+              class="btn btn-success"
+              (click)="onSelectComentarios(producto)"
+            >
+              Comentarios
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="container ctn" *ngIf="idParam || selectedId">
+  <form>
+    <div class="form-row align-items-center">
+      <div class="col-auto my-1">
+        <select class="custom-select" (change)="selectChangeHandler($event)">
+          <option>Seleccione usuario...</option>
+          <option *ngFor="let usuario of usuarios" [value]="usuario.id">
+            {{ usuario.nombre }}
+          </option>
+        </select>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="container" *ngIf="idParam || selectedId">
+  <table class="table separacion personas">
+    <thead class="thead-dark">
+      <tr>
+        
+        <th scope="col">Nombre</th>
+        <th scope="col">Descripción</th>
+        <th scope="col">Precio</th>
+        <th scope="col">Vendedor</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let producto of productos">
+        
+        <td>{{ producto.nombre_producto }}</td>
+        <td>{{ producto.descripcion }}</td>
+        <td>${{ producto.precio }}</td>
+        <td>{{ producto.user_id }}</td>
+        <td>
+          <button class="btn btn-success btn" (click)="onSelectComentarios(producto)"
+          >
+            Comentarios
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<div class="container bg-light ctn shadow rounded" *ngIf="productos.length == 0">
+  <h4 class="text-secondary">NO HAY PRODUCTOS DE ESTE USUARIO</h4>
+</div>

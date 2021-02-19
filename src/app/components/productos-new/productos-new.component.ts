@@ -70,7 +70,7 @@ export class ProductosNewComponent implements OnInit {
       this.setData();
       this.authService.registroProduct(this.productos).subscribe(
         (data) => {
-          this.router.navigate(['productos/usuario/' + this.id2]);
+          this.router.navigate(['misproductos/usuario/' + this.id2]);
        
         },
         (error) => {

@@ -41,13 +41,13 @@ export class ComentariosNewComponent implements OnInit {
     this.http.get('http://127.0.0.1:3333/productos').subscribe(
       (data: any) => {
         this.productos = data.productos;
-        this.producto = {
+       /* this.producto = {
           id: data.producto.id,
           nombre_producto: data.producto.nombre_producto,
           descripcion: data.producto.descripcion,
           precio: data.producto.precio,
           user_id: data.producto.user_id,
-        };
+        };*/
 
         for (let prod of this.productos) {
             
@@ -68,16 +68,7 @@ export class ComentariosNewComponent implements OnInit {
       (data: any) => {
         
         this.id2 = data['id'];
-        console.log(this.id2)
-        this.authService.misProductos(this.id2).subscribe(
-          (data: any) => {
-            
-            
-          },
-          (error) => {
-            console.log(error);
-          }
-        );
+        
       },
       (error) => {
         console.log(error);
@@ -89,7 +80,7 @@ export class ComentariosNewComponent implements OnInit {
 
   selectChangeHandler(event: any) {
     this.selectedProducto = event.target.value;
-    console.log(this.selectedProducto)
+    
     this.authService.comentariosProducto(this.selectedProducto).subscribe(
       (data: any) => {
         

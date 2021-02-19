@@ -87,7 +87,7 @@ export class ComentariosProductoComponent implements OnInit {
                   if (coment.user_id == user.id) {
                   
                     this.userNombre = user.nombre;
-                    console.log(user.nombre)
+                    
                    
                   }
                 }
@@ -156,30 +156,8 @@ export class ComentariosProductoComponent implements OnInit {
         
         this.id = data['id'];
         this.nomUser = data['nombre']
-        console.log(this.nomUser)
-        this.authService.misProductos(this.id).subscribe(
-          (data: any) => {
-           
-            
-           /* for (let com of this.comentarios) {
-              
-              if (this.id == com.user_id) {
-                  
-                this.canDeleteUpdate = true;
-                console.log("Puede eliminar y act")
-                  
-              }
-              else{
-                console.log("Error linea 178")
-              }
-              
-            }*/
-            
-          },
-          (error) => {
-            console.log(error);
-          }
-        );
+      
+        
       },
       (error) => {
         console.log(error);
