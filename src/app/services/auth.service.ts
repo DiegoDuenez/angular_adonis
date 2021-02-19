@@ -149,10 +149,14 @@ export class AuthService {
     //return this.httpClient.delete(`${this.apiURL}borrar/comentarios/`)
     
     return this.httpClient.delete(`${this.apiURL}borrar/productos/` + id)
-   
+  
     
-    
-    
+  }
+
+  actualizarUsuario(usuario: User, id: Number){
+
+    return this.httpClient.put(`${this.apiURL}actualizar/usuarios/`+id, usuario);
+
   }
 
 }

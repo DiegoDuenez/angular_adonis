@@ -1,6 +1,6 @@
 <app-nav-bar-inicio-sesion></app-nav-bar-inicio-sesion>
 
-<div class="container bg-light ctn shadow rounded">
+<div class="container bg-light ctn shadow rounded"  *ngIf="!mostrar">
   <h4>ID:</h4>
   <span>{{ id }}</span>
   <h4>Nombre:</h4>
@@ -11,4 +11,29 @@
   <span>{{ email }}</span>
   <h4>Edad:</h4>
   <span>{{ edad }}</span>
+  <div class="form-group" align="right">
+    <button class="btn btn-sm btn-warning" (click)="dataShow()">Actualizar</button>
+  </div>
 </div>
+
+
+
+<form [formGroup]="registroForm" (ngSubmit)="registro()">
+  <div class="container bg-light ctn shadow rounded " *ngIf="mostrar" >
+    <h4>ID:</h4>
+    <span>{{ id }}</span>
+    <h4>Nombre:</h4>
+    <input type="text" class="form-control" id="inputNombre" formControlName="nombre" [class.is-invalid]="nombreValidate" placeholder="{{ nombre }}"/>
+    <h4>Apellidos:</h4>
+    <input type="text" class="form-control" id="inputApellidos" formControlName="apellidos" [class.is-invalid]="apellidosValidate" placeholder="{{ apellidos }}"/>
+    <h4>Email:</h4>
+    <input type="text" class="form-control" id="inputEmail" formControlName="email" [class.is-invalid]="emailValidate" placeholder="{{ email }}"/>
+    <h4>Edad:</h4>
+    <input type="number" min="1" pattern="^[0-9]+" class="form-control" id="inputEdad" formControlName="edad" [class.is-invalid]="edadValidate" placeholder="{{ edad }}"/>
+    <div class="form-group mt-2" align="right">
+      <button type="submit"  class="btn btn-sm btn-success">
+        Guardar
+      </button>
+    </div>
+  </div>
+</form>
