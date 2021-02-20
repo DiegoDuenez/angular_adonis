@@ -55,7 +55,7 @@ export class AuthService {
   }
 
   //registrar comentarios
-  comentariosNew(comentar: Comentario): Observable<any> {
+  comentariosNew(comentar: Comentario): Observable<any> { 
     return this.httpClient.post(`${this.apiURL}registrar/comentarios`,comentar)
 
   }

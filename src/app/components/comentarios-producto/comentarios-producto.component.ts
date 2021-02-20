@@ -79,7 +79,7 @@ export class ComentariosProductoComponent implements OnInit {
       console.log(this.idParam)
       this.authService.comentariosProducto(this.idParam).subscribe(
         (data: any) => {
-          this.router.navigate(['/comentarios/producto/' + this.idParam]);
+          this.router.navigate(['/comentarios/producto/' + this.idParam]); 
           this.comentarios = data.comentarios;
           
          
@@ -263,22 +263,29 @@ export class ComentariosProductoComponent implements OnInit {
   }
 
 
-  // - - - - -  PARA COMENTAR PRODUCTOS - - - - - 
 
-  registroPro(): void {
+
+
+  // - - - - -  PARA COMENTAR PRODUCTOS - - - - -  
+
+  registroPro(): void { 
    
     if (this.registroForm.invalid) {
       return Object.values(this.registroForm.controls).forEach((control) => {
         control.markAsTouched();
       });
     } else {
-      this.setUser();
+      this.setComentario(); 
      
 
-      this.router.navigateByUrl('/comentarios/producto/' + this.idParam)
-      this.authService.comentariosNew(this.comentar).subscribe(
+      
+      this.authService.comentariosNew(this.comentar).subscribe( 
         (data: any) => {
           
+          this.authService.comentariosProducto(this.idParam).subscribe((data: any) => {
+            this.comentarios = data.comentarios
+          })
+         
          
         },
         (error) => {
@@ -308,7 +315,7 @@ export class ComentariosProductoComponent implements OnInit {
     );
   }
 
-  setUser(): void {
+  setComentario(): void {
     this.comentar = {
       id: this.registroForm.get('id')?.value,
       titulo: this.registroForm.get('titulo')?.value,
