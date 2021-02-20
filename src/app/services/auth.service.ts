@@ -56,7 +56,8 @@ export class AuthService {
 
   //registrar comentarios
   comentariosNew(comentar: Comentario): Observable<any> {
-    return this.httpClient.post(`${this.apiURL}registrar/comentarios`,comentar);
+    return this.httpClient.post(`${this.apiURL}registrar/comentarios`,comentar)
+
   }
 
 
@@ -157,6 +158,18 @@ export class AuthService {
 
     return this.httpClient.put(`${this.apiURL}actualizar/usuarios/`+id, usuario);
 
+  }
+
+
+  
+  private _listeners = new Subject<any>();
+  listen(): Observable<any>{
+    return this._listeners.asObservable();
+
+  }
+
+  filter(filterBy: string){
+    this._listeners.next(filterBy)
   }
 
 }

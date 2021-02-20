@@ -22,6 +22,7 @@ export class ProductosNewComponent implements OnInit {
   productos!: Producto;
   user!: User;
   id2!: Number;
+  
 
   constructor(
     private fb: FormBuilder,
@@ -33,6 +34,7 @@ export class ProductosNewComponent implements OnInit {
 
   ngOnInit(): void {
     this.idUser()
+    
   }
 
 
@@ -117,7 +119,8 @@ export class ProductosNewComponent implements OnInit {
       nombre_producto: this.registroForm.get('nombre_producto')?.value,
       descripcion: this.registroForm.get('descripcion')?.value,
       precio: this.registroForm.get('precio')?.value,
-      user_id: this.id2
+      user_id: this.id2,
+      nombre:  this.registroForm.get('nombre')?.value,
     };
   }
 }

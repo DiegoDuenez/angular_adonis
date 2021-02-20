@@ -1,10 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { BehaviorSubject, Subscription } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { Comentario } from '../../models/comentario';
 import { Producto } from '../../models/producto';
 import { User } from '../../models/user';
+import { Location } from '@angular/common';
+
+
 
 @Component({
   selector: 'app-comentarios-producto',
@@ -12,11 +18,14 @@ import { User } from '../../models/user';
   styleUrls: ['./comentarios-producto.component.css'],
 })
 export class ComentariosProductoComponent implements OnInit {
+
+  registroForm!: FormGroup;
   usuario!: User;
   usuarios!: User[];
   producto!: Producto;
   productos!: Producto[];
   comentario!: Comentario;
+  comentar!: Comentario;
   comentarios!: Comentario[];
   selectedProducto!: Comentario;
   idParam!: Number;
@@ -29,31 +38,43 @@ export class ComentariosProductoComponent implements OnInit {
   canUpdate!: boolean;
   selectedComentario!: Comentario;
   nomUser!: String;
+  selectIdProducto!: Number;
+
+  suscription!: Subscription;
+
+
 
   constructor(
+    private fb: FormBuilder,
     public authService: AuthService,
     private router: Router,
     private route: ActivatedRoute,
-    private http: HttpClient
-  ) {}
+    private http: HttpClient,
+    public location: Location
+    
+  ) { this.crearForm() 
+  
+  
+  }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.idParam = this.route.snapshot.params['id'];
-
+    
+    
     this.userId()
+
 
     this.authService.usuarios().subscribe(
       (data: any) => {
         this.usuarios = data.usuarios;
-        
 
-        
       },
       (error) => {
         console.log(error);
       }
     );
     if (this.idParam) {
+      console.log(this.idParam)
       this.authService.comentariosProducto(this.idParam).subscribe(
         (data: any) => {
           this.router.navigate(['/comentarios/producto/' + this.idParam]);
@@ -73,15 +94,7 @@ export class ComentariosProductoComponent implements OnInit {
                   
                 }
               }
-             /* for (let prod of this.productos) {
-                for (let coment of this.comentarios) {
-                  if (coment.producto_id == prod.id) {
-                   
-                    this.prodNombre = prod.nombre_producto;
-                    
-                  }
-                }
-              }*/
+             
               for (let user of this.usuarios) {
                 for (let coment of this.comentarios) {
                   if (coment.user_id == user.id) {
@@ -169,7 +182,9 @@ export class ComentariosProductoComponent implements OnInit {
 
   selectChangeHandler(event: any) {
     this.selectedId = event.target.value;
-    
+    console.log(this.selectedId)
+    this.idParam = this.selectedId
+    console.log(this.idParam)
     this.authService.comentariosProducto(this.selectedId).subscribe(
       (data: any) => {
         this.router.navigate(['/comentarios/producto/' + this.selectedId]);
@@ -241,6 +256,79 @@ export class ComentariosProductoComponent implements OnInit {
       this.canDelete = false;
     }
   }
+
+
+  // - - - - -  PARA COMENTAR PRODUCTOS - - - - - 
+
+  registroPro(): void {
+   
+    if (this.registroForm.invalid) {
+      return Object.values(this.registroForm.controls).forEach((control) => {
+        control.markAsTouched();
+      });
+    } else {
+      this.setUser();
+      console.log(this.comentar)
+
+      this.router.navigateByUrl('/comentarios/producto/' + this.idParam)
+      this.authService.comentariosNew(this.comentar).subscribe(
+        (data: any) => {
+          
+         
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    }
+  }
+
+  crearForm(): void {
+    this.registroForm = this.fb.group({
+      titulo: ['', [Validators.required]],
+      contenido: ['', [Validators.required]],
+    });
+  }
+
+  get tituloValidate() {
+    return (
+      this.registroForm.get('titulo')?.invalid &&
+      this.registroForm.get('titulo')?.touched
+    );
+  }
+  get contenidoValidate() {
+    return (
+      this.registroForm.get('contenido')?.invalid &&
+      this.registroForm.get('contenido')?.touched
+    );
+  }
+
+  setUser(): void {
+    this.comentar = {
+      id: this.registroForm.get('id')?.value,
+      titulo: this.registroForm.get('titulo')?.value,
+      contenido: this.registroForm.get('contenido')?.value,
+      user_id: this.id,
+      producto_id: this.idParam,
+      created_at: this.registroForm.get('created_at')?.value,
+      updated_at: this.registroForm.get('updated_at')?.value,
+      nombre: this.registroForm.get('nombre_user')?.value,
+      nombre_producto: this.registroForm.get('nombre_prod')?.value
+      
+    
+    };
+    
+  }
+
+  /*refresh(): void{
+    this.router.navigateByUrl('/comentarios/producto/' + this.idParam, {skipLocationChange:true}).then(() => {
+      console.log(decodeURI(this.location.path()))
+      this.router.navigate([ decodeURI(this.location.path())])
+    })
+  }*/
+
+  
+ 
 
  
 }

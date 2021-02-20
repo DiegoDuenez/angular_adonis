@@ -16,7 +16,7 @@ export class ComentariosUsuarioComponent implements OnInit {
   usuarios!: User[];
   producto!: Producto;
   productos!: Producto[];
-  comentario!: Comentario;
+  //comentario!: Comentario;
   comentarios!: Comentario[];
   idParam!: Number;
   selectedId!: Number;
@@ -90,6 +90,7 @@ export class ComentariosUsuarioComponent implements OnInit {
         (data: any) => {
           this.router.navigate(['/comentarios/usuarios']);
           this.comentarios = data.comentarios;
+          console.log(this.comentarios)
           this.http.get('http://127.0.0.1:3333/usuarios').subscribe(
             (data: any) => {
               this.usuarios = data.usuarios;
@@ -135,7 +136,7 @@ export class ComentariosUsuarioComponent implements OnInit {
       (data: any) => {
         this.router.navigate(['/comentarios/usuario/' + this.selectedId]);
         this.comentarios = data.comentarios;
-        
+        console.log(this.comentarios)
         if (this.comentarios.length == 0) {
           console.log('Array vacio');
         }
@@ -171,6 +172,7 @@ export class ComentariosUsuarioComponent implements OnInit {
         console.log(error);
   
       });
+      
 
     
     }else{

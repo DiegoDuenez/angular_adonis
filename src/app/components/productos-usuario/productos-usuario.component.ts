@@ -14,7 +14,7 @@ import { User } from '../../models/user';
 })
 export class ProductosUsuarioComponent implements OnInit {
 
-  producto!: Producto;
+  producto!: Producto[];
   usuario!: User;
   idParam!: Number;
   usuarios!: User[];
@@ -54,7 +54,7 @@ export class ProductosUsuarioComponent implements OnInit {
         (data: any) => {
           this.router.navigate(['/producto/usuario/' + this.idParam]);
           this.productos = data.productos
-          
+          console.log(this.productos)
 
           this.authService.usuarios().subscribe((data: any) => {
             this.usuarios = data.usuarios
@@ -78,7 +78,7 @@ export class ProductosUsuarioComponent implements OnInit {
       (data: any) => {
         this.router.navigate(['/producto/usuario/' + this.selectedId]);
         this.productos = data.productos
-        
+        console.log(this.productos)
       },
       (error) => {
         console.log(error);

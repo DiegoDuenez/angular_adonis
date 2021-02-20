@@ -1,6 +1,9 @@
 <app-nav-bar-inicio-sesion></app-nav-bar-inicio-sesion>
 
-<div class="container">
+<div class="container separacion">
+  <button class="btn btn-success" routerLink="/registrar/productos">
+    Nuevo producto
+  </button>
   <table class="table separacion personas">
     <thead class="thead-dark">
       <tr>
@@ -18,7 +21,7 @@
         <td>{{ producto.descripcion }}</td>
         <td>${{ producto.precio }}</td>
         <td>          
-          <button class="btn btn-success btn" (click)="onSelectComentarios(producto)">Comentarios</button> &nbsp;
+          <button class="btn btn-primary btn" (click)="onSelectComentarios(producto)">Comentarios</button> &nbsp;
           <button class="btn btn-warning btn" routerLink="/actualizar/productos" (click)="onSelectAtualizarComentarios(producto)">
             Actualizar
           </button>

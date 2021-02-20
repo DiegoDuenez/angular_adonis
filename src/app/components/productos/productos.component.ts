@@ -13,7 +13,7 @@ import { User } from '../../models/user';
   styleUrls: ['./productos.component.css'],
 })
 export class ProductosComponent implements OnInit {
-  producto!: Producto;
+  producto!: Producto[];
   usuario!: User;
   usuarios!: User[];
   productos!: Producto[];
@@ -37,6 +37,7 @@ export class ProductosComponent implements OnInit {
         (data: any) => {
           this.router.navigate(['/productos']);
           this.productos = data.productos;
+         
           
         },
         (error) => {
@@ -58,13 +59,14 @@ export class ProductosComponent implements OnInit {
               console.log(error);
             }
           );
-          this.producto = {
+          /*this.producto = {
             id: data.producto.id,
             nombre_producto: data.producto.nombre_producto,
             descripcion: data.producto.descripcion,
             precio: data.producto.precio,
             user_id: data.producto.user_id,
-          };
+            nombre: data.producto.nombre
+          };*/
         },
         (error) => {
           console.log(error);
@@ -80,6 +82,7 @@ export class ProductosComponent implements OnInit {
       (data: any) => {
         this.router.navigate(['/productos/' + this.selectedId]);
         this.producto = data.producto;
+        
        
       },
       (error) => {

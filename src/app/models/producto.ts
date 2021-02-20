@@ -4,4 +4,5 @@ export interface Producto {
     descripcion: String;
     precio: Float32Array;
     user_id: Number;
+    nombre: String;
 }

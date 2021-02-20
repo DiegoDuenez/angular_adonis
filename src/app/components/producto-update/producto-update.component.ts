@@ -19,11 +19,12 @@ import { User } from '../../models/user';
 })
 export class ProductoUpdateComponent implements OnInit {
   registroForm!: FormGroup;
-  productos!: Producto;
+  producto!: Producto;
   user!: User;
   id2!: Number;
   idParam!:Number;
   selectedProducto!:Producto;
+  nameUser!: String;
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
@@ -39,17 +40,17 @@ export class ProductoUpdateComponent implements OnInit {
     this.idUser()
   }
 
-
-
-
   idUser() {
     this.authService.perfil(this.user).subscribe(
       (data: any) => {
        
         this.id2 = data['id'];
+        this.nameUser = data['nombre']
+        console.log(this.nameUser)
         this.authService.misProductos(this.id2).subscribe(
           (data: any) => {
-            this.productos = data.productos;
+            this.producto = data.productos;
+            console.log(this.producto)
             
           },
           (error) => {
@@ -74,9 +75,9 @@ export class ProductoUpdateComponent implements OnInit {
     } else {
       this.setData();
      
-      this.authService.actualizarProduct(this.productos,this.idParam).subscribe(
+      this.authService.actualizarProduct(this.producto,this.idParam).subscribe(
         (data) => {
-          this.router.navigate(['/productos/usuario/' + this.id2])
+          this.router.navigate(['/misproductos/usuario/' + this.id2])
           
         },
         (error) => {
@@ -118,12 +119,13 @@ export class ProductoUpdateComponent implements OnInit {
 
 
   setData(): void {
-    this.productos = {
+    this.producto = {
       id: this.registroForm.get('id')?.value,
       nombre_producto: this.registroForm.get('nombre_producto')?.value,
       descripcion: this.registroForm.get('descripcion')?.value,
       precio: this.registroForm.get('precio')?.value,
-      user_id: this.id2
+      user_id: this.id2,
+      nombre: this.registroForm.get('nombre')?.value,
     };
   }
 }

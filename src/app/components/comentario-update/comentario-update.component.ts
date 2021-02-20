@@ -48,6 +48,7 @@ export class ComentarioUpdateComponent implements OnInit {
           descripcion: data.producto.descripcion,
           precio: data.producto.precio,
           user_id: data.producto.user_id,
+          nombre: data.producto.nombre
         };
 
         for (let prod of this.productos) {
@@ -160,6 +161,8 @@ export class ComentarioUpdateComponent implements OnInit {
       producto_id: this.selectedProducto,
       created_at: this.registroForm.get('created_at')?.value,
       updated_at: this.registroForm.get('updated_at')?.value,
+      nombre: this.registroForm.get('nombre_user')?.value,
+      nombre_producto: this.registroForm.get('nombre_prod')?.value
     };
   }
 

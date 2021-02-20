@@ -6,4 +6,6 @@ export interface Comentario {
     producto_id: Number;
     created_at: String;
     updated_at: String;
+    nombre: String;
+    nombre_producto: String;
 }

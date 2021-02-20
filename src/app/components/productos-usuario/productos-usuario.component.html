@@ -33,12 +33,12 @@
         <td>{{ producto.nombre_producto }}</td>
         <td>{{ producto.descripcion }}</td>
         <td>${{ producto.precio }}</td>
-        <td>{{ producto.user_id }}</td>
+        <td>{{ producto.nombre }}</td>
         <td>
           <div class="btn-group">
             <button
               type="button"
-              class="btn btn-success"
+              class="btn btn-primary"
               (click)="onSelectComentarios(producto)"
             >
               Comentarios
@@ -83,9 +83,9 @@
         <td>{{ producto.nombre_producto }}</td>
         <td>{{ producto.descripcion }}</td>
         <td>${{ producto.precio }}</td>
-        <td>{{ producto.user_id }}</td>
+        <td>{{ producto.nombre}}</td>
         <td>
-          <button class="btn btn-success btn" (click)="onSelectComentarios(producto)"
+          <button class="btn btn-primary" (click)="onSelectComentarios(producto)"
           >
             Comentarios 
           </button>

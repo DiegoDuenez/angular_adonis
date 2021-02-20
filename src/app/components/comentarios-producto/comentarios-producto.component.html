@@ -1,6 +1,6 @@
 <app-nav-bar-inicio-sesion></app-nav-bar-inicio-sesion>
 
-<div class="container ctn">
+<div class="container ctn" *ngIf="idParam || !idParam">
   <form>
     <div class="form-row align-items-center">
       <div class="col-auto my-1">
@@ -15,24 +15,37 @@
   </form>
 </div>
 
+<div class="container bg-light ctn shadow rounded" *ngIf="idParam">
+  <form [formGroup]="registroForm" (ngSubmit)="registroPro()">
+    <h4>Titulo:</h4>
+    <input type="text" class="form-control" id="inputTitulo" formControlName="titulo" [class.is-invalid]="tituloValidate"/>
+    <h4>Contenido:</h4>
+    <input type="text" class="form-control" id="inputContenido" formControlName="contenido" [class.is-invalid]="contenidoValidate" />
+    <div class="form-inline form-group">
+        <button class="btn btn-success linear mt-2" type="submit" > Comentar </button>
+    </div>
+  </form>
+</div>
+
+
 <div *ngIf="idParam">
   <div
     class="container bg-light ctn shadow rounded"
     *ngFor="let comentario of comentarios"
   >
     <h4>Usuario:</h4>
-    <span>{{ comentario.user_id }}</span>
+    <span>{{ comentario.nombre}}</span>
     <h4>Titulo:</h4>
     <span>{{ comentario.titulo }}</span>
     <h4>Contenido:</h4>
     <span>{{ comentario.contenido }}</span>
     <h4>Producto:</h4>
-    <span>{{ comentario.producto_id }}</span>
+    <span>{{ comentario.nombre_producto }}</span>
     <br />
-    <form class="form-inline">
+    <div class="form-inline">
       <button class="btn btn-warning btn linear" (click)="onSelectAtualizarComentarios(comentario)" data-toggle="modal" data-target="#exampleModal2">Actualizar</button>
       <button class="btn btn-danger btn linear ml-2" (click)="onDeletecomentarioUsuario(comentario)" data-toggle="modal" data-target="#exampleModal"> Eliminar  </button>
-   </form> 
+    </div> 
   </div>
 </div>
 <div class="container bg-light ctn shadow rounded" *ngIf="comentarios.length == 0">
@@ -41,6 +54,7 @@
 <div class="container bg-light ctn shadow rounded" *ngIf="!idParam">
   <h4 class="text-secondary">ELIGA UN PRODUCTO PARA VER SUS COMENTARIOS</h4>
 </div>
+
 
 
 
