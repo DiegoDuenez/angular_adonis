@@ -42,6 +42,8 @@ export class ComentariosProductoComponent implements OnInit {
 
   suscription!: Subscription;
 
+  tuyo!: boolean;
+  noTuyo!: boolean;
 
 
   constructor(
@@ -62,7 +64,7 @@ export class ComentariosProductoComponent implements OnInit {
     
     
     this.userId()
-
+    
 
     this.authService.usuarios().subscribe(
       (data: any) => {
@@ -79,10 +81,12 @@ export class ComentariosProductoComponent implements OnInit {
         (data: any) => {
           this.router.navigate(['/comentarios/producto/' + this.idParam]);
           this.comentarios = data.comentarios;
+          
          
           this.http.get('http://127.0.0.1:3333/productos').subscribe(
             (data: any) => {
               this.productos = data.productos;
+
               
               if (this.comentarios.length == 0) {
                 console.log('Array vacio');
@@ -169,7 +173,7 @@ export class ComentariosProductoComponent implements OnInit {
         
         this.id = data['id'];
         this.nomUser = data['nombre']
-      
+        
         
       },
       (error) => {
@@ -182,9 +186,10 @@ export class ComentariosProductoComponent implements OnInit {
 
   selectChangeHandler(event: any) {
     this.selectedId = event.target.value;
-    console.log(this.selectedId)
+    
     this.idParam = this.selectedId
-    console.log(this.idParam)
+    
+    
     this.authService.comentariosProducto(this.selectedId).subscribe(
       (data: any) => {
         this.router.navigate(['/comentarios/producto/' + this.selectedId]);
@@ -268,7 +273,7 @@ export class ComentariosProductoComponent implements OnInit {
       });
     } else {
       this.setUser();
-      console.log(this.comentar)
+     
 
       this.router.navigateByUrl('/comentarios/producto/' + this.idParam)
       this.authService.comentariosNew(this.comentar).subscribe(

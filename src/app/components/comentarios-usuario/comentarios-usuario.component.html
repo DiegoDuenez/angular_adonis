@@ -30,7 +30,7 @@
     <span>{{ comentario.nombre_producto }}</span>
     <br />
 
- <form class="form-inline">
+ <form class="form-inline"  *ngIf="comentario.nombre == nomUser">
     <button class="btn btn-warning btn linear" (click)="onSelectAtualizarComentarios(comentario)" data-toggle="modal" data-target="#exampleModal2">Actualizar</button>
     <button class="btn btn-danger btn linear ml-2" (click)="onDeletecomentarioUsuario(comentario)" data-toggle="modal" data-target="#exampleModal"> Eliminar  </button>
  </form> 

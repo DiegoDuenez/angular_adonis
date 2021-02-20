@@ -20,7 +20,7 @@ export class ComentariosUsuarioComponent implements OnInit {
   comentarios!: Comentario[];
   idParam!: Number;
   selectedId!: Number;
-  userNombre!: String;
+  nomUser!: String;
   prodNombre!: String;
   selectedproducto!: Comentario;
   selectedProducto2!:Comentario;
@@ -63,7 +63,7 @@ export class ComentariosUsuarioComponent implements OnInit {
               for (let user of this.usuarios) {
                 if (this.idParam == user.id) {
                   
-                  this.userNombre = user.nombre;
+              
                   
                 }
               }
@@ -101,7 +101,7 @@ export class ComentariosUsuarioComponent implements OnInit {
                 for (let coment of this.comentarios) {
                   if (coment.user_id == user.id) {
                     
-                    this.userNombre = user.nombre;
+                 
                     
                   }
                 }
@@ -142,7 +142,7 @@ export class ComentariosUsuarioComponent implements OnInit {
         }
         for (let user of this.usuarios) {
           if (this.selectedId == user.id) {
-            this.userNombre = user.nombre;
+           
           }
         }
         for (let prod of this.productos) {
@@ -221,6 +221,7 @@ export class ComentariosUsuarioComponent implements OnInit {
       (data: any) => {
         
         this.id = data['id'];
+        this.nomUser = data['nombre'];
       },
       (error) => {
         console.log(error);
